@@ -12,6 +12,7 @@ def read_users(human_only=False):
     return users
 
 def summary():
+    # TODO move this function to a dedicated file
     all_users = read_users()
     print(f"We've got total of {len(all_users)} users")
     humans = read_users(human_only=True)
@@ -20,4 +21,6 @@ def summary():
         usernames.add(user[0])
     print(f"Human users are: {', '.join(usernames)}")
 
-summary()
+
+if __name__ == '__main__':
+    summary()
