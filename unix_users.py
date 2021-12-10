@@ -1,26 +1,18 @@
+USER_FILE_PATH = "/etc/passwd"
+
 def read_users(human_only=False):
+    """
+    Read files from USER_FILE_PATH and return them
+    parsed as a list of tokens.
+    """
     users = []
-    with open("/etc/passwd") as f:      # context manager
+    with open(USER_FILE_PATH) as f:      # context manager
         for line in f:
             line = line.strip()
             tokens = line.split(":")
             shell = tokens[-1]
             if not human_only:
                 users.append(tokens)
-            elif shell.endswith('sh'):
+            elif shell.endswith("sh"):
                 users.append(tokens)
     return users
-
-def summary():
-    # TODO move this function to a dedicated file
-    all_users = read_users()
-    print(f"We've got total of {len(all_users)} users")
-    humans = read_users(human_only=True)
-    usernames = set()
-    for user in humans:
-        usernames.add(user[0])
-    print(f"Human users are: {', '.join(usernames)}")
-
-
-if __name__ == '__main__':
-    summary()
